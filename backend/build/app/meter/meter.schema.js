@@ -1,8 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
-const base_schema_1 = require("../utility/base.schema");
-const meterSchema = new base_schema_1.baseSchema({
+const meterSchema = new mongoose_1.Schema({
     boardId: {
         type: mongoose_1.Schema.Types.ObjectId,
         required: true,
@@ -18,25 +17,21 @@ const meterSchema = new base_schema_1.baseSchema({
     },
     bills: [
         {
-            type: mongoose_1.Schema.Types.ObjectId,
-            ref: "Bills",
+            billId: {
+                type: mongoose_1.Schema.Types.ObjectId,
+                ref: "Bill",
+            },
         },
     ],
     isReadingTaken: {
         type: Boolean,
         default: false,
     },
-    isActive: {
-        type: Boolean,
-    },
-    balanceAmount: {
-        type: Number,
-    },
-    avgConsumption: {
-        type: Number,
-    },
+    isActive: Boolean,
+    balanceAmount: Number,
+    avgConsumption: Number,
 });
-const billsSchema = new base_schema_1.baseSchema({
+const billsSchema = new mongoose_1.Schema({
     meterId: {
         type: mongoose_1.Schema.Types.ObjectId,
         required: true,
@@ -54,11 +49,11 @@ const billsSchema = new base_schema_1.baseSchema({
         type: Boolean,
         default: false,
     },
-    images: [
-        {
-            type: String,
-        },
-    ],
+    images: [String],
 });
-const billModel = (0, mongoose_1.model)("MonthlyUsage", billsSchema);
-const meterModel = (0, mongoose_1.model)("Meters", meterSchema);
+const billsModel = (0, mongoose_1.model)("Bill", billsSchema);
+const meterModel = (0, mongoose_1.model)("Meter", meterSchema);
+exports.default = {
+    billsModel,
+    meterModel,
+};

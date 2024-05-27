@@ -1,7 +1,6 @@
 import { model, Schema } from "mongoose";
-import { baseSchema } from "../utility/base.schema";
 
-const meterSchema = new baseSchema({
+const meterSchema = new Schema({
   boardId: {
     type: Schema.Types.ObjectId,
     required: true,
@@ -17,26 +16,22 @@ const meterSchema = new baseSchema({
   },
   bills: [
     {
-      type: Schema.Types.ObjectId,
-      ref: "Bills",
+      billId: {
+        type: Schema.Types.ObjectId,
+        ref: "Bill",
+      },
     },
   ],
   isReadingTaken: {
     type: Boolean,
     default: false,
   },
-  isActive: {
-    type: Boolean,
-  },
-  balanceAmount: {
-    type: Number,
-  },
-  avgConsumption: {
-    type: Number,
-  },
+  isActive: Boolean,
+  balanceAmount: Number,
+  avgConsumption: Number,
 });
 
-const billsSchema = new baseSchema({
+const billsSchema = new Schema({
   meterId: {
     type: Schema.Types.ObjectId,
     required: true,
@@ -54,12 +49,13 @@ const billsSchema = new baseSchema({
     type: Boolean,
     default: false,
   },
-  images: [
-    {
-      type: String,
-    },
-  ],
+  images: [String],
 });
 
-const billModel = model("MonthlyUsage", billsSchema);
-const meterModel = model("Meters", meterSchema);
+const billsModel = model("Bill", billsSchema);
+const meterModel = model("Meter", meterSchema);
+
+export default {
+  billsModel,
+  meterModel,
+};

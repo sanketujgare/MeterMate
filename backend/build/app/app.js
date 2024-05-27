@@ -14,33 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.startServer = void 0;
 const express_1 = __importDefault(require("express"));
+const routes_1 = require("./routes/routes");
 const connectToMongo_1 = require("./connections/connectToMongo");
-const board_schema_1 = __importDefault(require("./boards/board.schema"));
 const startServer = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const app = (0, express_1.default)();
-        // registerMiddlewares(app);
         yield (0, connectToMongo_1.connectDB)();
-        const newBoard = new board_schema_1.default({
-            boardName: "Maharashtra State Electricity Distribution Co. Ltd. (MSEDCL)",
-            totalCustomers: 0,
-            email: "info@mahadiscom.in",
-            services: [
-                {
-                    meterCategory: "Household meter",
-                    meterType: "Solar meter",
-                    basePrice: 8.5,
-                    discount: 0,
-                },
-                {
-                    meterCategory: "Household meter",
-                    meterType: "Regular meter",
-                    basePrice: 6.5,
-                    discount: 0,
-                },
-            ],
-        });
-        newBoard.save();
+        (0, routes_1.registerMiddlewares)(app);
         const { PORT } = process.env;
         app.listen(PORT, () => {
             console.log(`SERVER UP AND RUNNIG ON THE PORT ${PORT}`);

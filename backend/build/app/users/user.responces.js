@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User_Responces = void 0;
-exports.User_Responces = {
+exports.userResponces = void 0;
+exports.userResponces = {
     USER_NOT_FOUND: {
         statusCode: 404,
         message: "User not found",
@@ -17,5 +17,17 @@ exports.User_Responces = {
     INSER_FAILED: {
         statusCode: 500,
         message: "Insertion failed",
+    },
+    USER_CREATED_SUCCESSFULLY: {
+        statusCode: 200,
+        message: "USER CREATED SUCCESSFULLY",
+    },
+    NO_CUSTOMERS_FOUND: {
+        statusCode: 404,
+        message: "NO CUSTOMERS FOUND",
+    },
+    USER_DELETED_SUCCESSFULY: {
+        statusCode: 200,
+        message: "USER DELETED SUCCESSFULLY",
     },
 };

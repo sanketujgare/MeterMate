@@ -4,7 +4,6 @@ export class baseSchema extends Schema {
   constructor(schema: { [key: string]: SchemaDefinitionProperty }) {
     super({
       ...schema,
-
       isDeleted: {
         type: Boolean,
         require: false,

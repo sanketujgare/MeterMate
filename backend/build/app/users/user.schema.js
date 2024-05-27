@@ -1,17 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
-const base_schema_1 = require("../utility/base.schema");
-const userSchema = new base_schema_1.baseSchema({
-    firstname: {
-        type: String,
-    },
-    lastname: {
-        type: String,
-    },
-    fullname: {
-        type: String,
-    },
+const userSchema = new mongoose_1.Schema({
+    firstname: String,
+    lastname: String,
+    fullname: String,
     username: {
         type: String,
         required: true,
@@ -26,40 +19,30 @@ const userSchema = new base_schema_1.baseSchema({
     },
     role: {
         type: [String],
-        required: true,
         default: ["User"],
     },
-    profilePic: {
-        type: String,
-    },
+    profilePic: String,
     empId: {
         type: Number,
-        required: true,
     },
-    metersAssigned: {
-        type: [
-            {
-                meterId: mongoose_1.Schema.Types.ObjectId,
-                ref: "Meters",
+    metersAssigned: [
+        {
+            meterId: {
+                type: mongoose_1.Schema.Types.ObjectId,
+                ref: "Meter",
             },
-        ],
-    },
+        },
+    ],
     address: {
-        street: {
-            type: String,
-        },
-        city: {
-            type: String,
-        },
-        state: {
-            type: String,
-        },
-        country: {
-            type: String,
-        },
-        zipCode: {
-            type: String,
-        },
+        city: String,
+        state: String,
+        country: String,
+        zipCode: String,
+    },
+    isDeleted: {
+        type: Boolean,
+        default: false,
     },
 });
-const userModel = (0, mongoose_1.model)("Users", userSchema);
+const userModel = (0, mongoose_1.model)("User", userSchema);
+exports.default = userModel;
