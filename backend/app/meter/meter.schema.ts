@@ -2,7 +2,7 @@ import { model, Schema } from "mongoose";
 
 const meterSchema = new Schema({
   boardId: {
-    type: Schema.Types.ObjectId,
+    type: String,
     required: true,
     ref: "Board",
   },
@@ -27,6 +27,7 @@ const meterSchema = new Schema({
     default: false,
   },
   isActive: Boolean,
+  isAssigned: Boolean,
   balanceAmount: Number,
   avgConsumption: Number,
 });

@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const meterSchema = new mongoose_1.Schema({
     boardId: {
-        type: mongoose_1.Schema.Types.ObjectId,
+        type: String,
         required: true,
         ref: "Board",
     },
@@ -28,6 +28,7 @@ const meterSchema = new mongoose_1.Schema({
         default: false,
     },
     isActive: Boolean,
+    isAssigned: Boolean,
     balanceAmount: Number,
     avgConsumption: Number,
 });

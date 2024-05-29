@@ -1,2 +1,63 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.roles = exports.permissions = void 0;
+exports.permissions = {
+    boardAdmin: [
+        "createBoardMember",
+        "viewAllCustomers",
+        "deleteCustomer",
+        "assignMeter",
+        "updateCustomer",
+        "configureServices",
+        "uploadBulk",
+        "createCustomer",
+        "viewDeleteCustomers",
+        "getTotalCustomersCount",
+        "viewCustomer",
+        "viewMeter",
+        "searchCustomers",
+    ],
+    boardMember: [
+        "viewAllCustomers",
+        "deleteCustomer",
+        "assignMeter",
+        "updateCustomer",
+        "createCustomer",
+        "viewDeletedCustomers",
+        "viewCustomer",
+        "configureServices",
+        "viewMeter",
+        "searchCustomers",
+    ],
+    superAdmin: [
+        "searchEmployees",
+        "searchCustomers",
+        "viewAllCustomer",
+        "viewAllEmployees",
+        "getTotalCustomersCount",
+        "getTotalEmployeeCount",
+        "createEmployee",
+        "updateEmployee",
+        "viewCustomer",
+        "viewEmployee",
+        "viewAllBoards",
+        "deleteBoard",
+        "viewMeter",
+    ],
+    supervisor: [
+        "viewAllCustomer",
+        "viewAllEmployees",
+        "viewTickets",
+        "updateTickets",
+    ],
+    fieldStaff: ["viewAllCustomers", "viewPendingReadings", "uploadReadings"],
+    customer: ["viewBills", "raiseticket"],
+};
+exports.roles = [
+    "boardAdmin",
+    "boardMember",
+    "superAdmin",
+    "supervisor",
+    "fieldStaff",
+    "customer",
+];

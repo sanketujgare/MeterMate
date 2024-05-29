@@ -13,7 +13,7 @@ export const login = async (credentials: CredentialsI) => {
     }
     const didMatch = await bcrypt.compare(credentials.password, user.password);
     if (!didMatch) {
-      console.log("password not matched");
+      throw userResponces.INVALID_CREDENTIALS;
     }
     const { password, role, ...restOfTheUser } = user.toObject();
     const { JWT_SECRET } = process.env;

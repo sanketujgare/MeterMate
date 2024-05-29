@@ -30,4 +30,12 @@ exports.userResponces = {
         statusCode: 200,
         message: "USER DELETED SUCCESSFULLY",
     },
+    METER_ASSIGNED: {
+        statusCode: 200,
+        message: "METER ASSISGNED SUCCESSFULLY",
+    },
+    FAILED_TO_ASSIGN_METER: {
+        statusCode: 500,
+        message: "FAILED TO ASSIGN METER",
+    },
 };

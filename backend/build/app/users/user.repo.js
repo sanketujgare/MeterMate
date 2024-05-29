@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getDeltedCustomers = exports.deleteUser = exports.getAllCustomers = exports.insertOne = exports.findUser = void 0;
+exports.assignMeter = exports.getDeltedCustomers = exports.deleteUser = exports.getAllCustomers = exports.insertOne = exports.findUser = void 0;
 const user_schema_1 = __importDefault(require("./user.schema"));
 const findUser = (query) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield user_schema_1.default.findOne({
@@ -27,8 +27,10 @@ const insertOne = (newUser) => {
     return User;
 };
 exports.insertOne = insertOne;
-const getAllCustomers = () => __awaiter(void 0, void 0, void 0, function* () {
-    const customers = yield user_schema_1.default.find({ role: "Customer" });
+const getAllCustomers = (boardId) => __awaiter(void 0, void 0, void 0, function* () {
+    const customers = yield user_schema_1.default.find({
+        $and: [{ role: "Customer" }, { boardId: boardId }],
+    });
     return customers;
 });
 exports.getAllCustomers = getAllCustomers;
@@ -41,13 +43,20 @@ const getDeltedCustomers = (boardId) => __awaiter(void 0, void 0, void 0, functi
     const deletedCustomers = yield user_schema_1.default.find({
         $and: [{ metersAssigned: boardId }, { isDeleted: true }],
     });
+    // console.log(deletedCustomers);
     return deletedCustomers;
 });
 exports.getDeltedCustomers = getDeltedCustomers;
+const assignMeter = (userId, newMeterId) => __awaiter(void 0, void 0, void 0, function* () {
+    const isAssigned = yield user_schema_1.default.findByIdAndUpdate({ _id: userId }, { $push: { metersAssigned: { meterId: newMeterId } } });
+    return isAssigned;
+});
+exports.assignMeter = assignMeter;
 exports.default = {
     findUser: exports.findUser,
     insertOne: exports.insertOne,
     getAllCustomers: exports.getAllCustomers,
     deleteUser: exports.deleteUser,
     getDeltedCustomers: exports.getDeltedCustomers,
+    assignMeter: exports.assignMeter,
 };

@@ -1,6 +1,6 @@
 import { Schema, SchemaDefinitionProperty } from "mongoose";
 
-export class baseSchema extends Schema {
+export class BaseSchema extends Schema {
   constructor(schema: { [key: string]: SchemaDefinitionProperty }) {
     super({
       ...schema,

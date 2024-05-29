@@ -1,7 +1,7 @@
 import express from "express";
 import { registerMiddlewares } from "./routes/routes";
 import { connectDB } from "./connections/connectToMongo";
-import boardModel from "./boards/board.schema";
+
 export const startServer = async () => {
   try {
     const app = express();

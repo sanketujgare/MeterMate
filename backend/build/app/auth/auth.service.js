@@ -37,7 +37,7 @@ const login = (credentials) => __awaiter(void 0, void 0, void 0, function* () {
         }
         const didMatch = yield bcrypt_1.default.compare(credentials.password, user.password);
         if (!didMatch) {
-            console.log("password not matched");
+            throw user_responces_1.userResponces.INVALID_CREDENTIALS;
         }
         const _a = user.toObject(), { password, role } = _a, restOfTheUser = __rest(_a, ["password", "role"]);
         const { JWT_SECRET } = process.env;

@@ -1,7 +1,7 @@
 import { model, Schema } from "mongoose";
-import { baseSchema } from "../utility/base.schema";
+import { BaseSchema } from "../utility/base.schema";
 
-const boardSchema = new baseSchema({
+const boardSchema = new BaseSchema({
   boardName: {
     type: String,
   },

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const base_schema_1 = require("../utility/base.schema");
-const boardSchema = new base_schema_1.baseSchema({
+const boardSchema = new base_schema_1.BaseSchema({
     boardName: {
         type: String,
     },

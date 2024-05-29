@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.baseSchema = void 0;
+exports.BaseSchema = void 0;
 const mongoose_1 = require("mongoose");
-class baseSchema extends mongoose_1.Schema {
+class BaseSchema extends mongoose_1.Schema {
     constructor(schema) {
         super(Object.assign(Object.assign({}, schema), { isDeleted: {
                 type: Boolean,
@@ -24,4 +24,4 @@ class baseSchema extends mongoose_1.Schema {
             } }));
     }
 }
-exports.baseSchema = baseSchema;
+exports.BaseSchema = BaseSchema;
