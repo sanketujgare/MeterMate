@@ -91,10 +91,8 @@ export const permissionsToCreate = [
 export const permissionsToViewUser = ["viewCustomer", "viewEmployee"];
 export const permissionsToViewAllCustomers = ["viewAllCustomers"];
 export const permissionsToViewAllEmployees = ["viewAllEmployees"];
-export const permissionsToDeleteBoardMemberAndCustomer = [
-  "deleteCustomer",
-  "deleteBoardMember",
-];
+export const permissionsToDeleteCustomer = ["deleteCustomer"];
+export const permissionsTODeleteBoardMember = ["deleteBoardMember"];
 export const permissionsToViewDeleted = ["viewDeletedCustomers"];
 export const permissionsToAssignMeter = ["assignMeter"];
 export const permissionsToCreateBoard = ["createBoard"];
@@ -117,4 +115,5 @@ export default {
   permissionsToViewDeleted,
   permissionsToViewUser,
   permissionsToCreateBoard,
+  permissionsToDeleteCustomer,
 };

@@ -18,8 +18,9 @@ import {
   permissionsToViewDeleted,
   permissionsToViewUser,
   permissionsToCreateBoard,
-  permissionsToDeleteBoardMemberAndCustomer,
+  permissionsToDeleteCustomer,
   permissionsToDeleteEmployee,
+  permissionsTODeleteBoardMember,
 } from "../utility/pemissions";
 
 const userRouter = Router();
@@ -27,7 +28,7 @@ const userRouter = Router();
 userRouter.post(
   "/create-user",
   authPermissions(permissionsToCreate),
-  ...userValidations, // VARIFIED
+  ...userValidations,
   async (req, res, next) => {
     try {
       const result = await userService.createUser(req.body);
@@ -68,7 +69,7 @@ userRouter.get(
 
 userRouter.delete(
   "/delete-customer/:userid",
-  authPermissions(permissionsToDeleteBoardMemberAndCustomer),
+  authPermissions(permissionsToDeleteCustomer),
   async (req, res, next) => {
     try {
       const boardId = req.currentUser.boardId;
@@ -84,7 +85,7 @@ userRouter.delete(
 );
 userRouter.delete(
   "/delete-board-member/:userid",
-  authPermissions(permissionsToDeleteBoardMemberAndCustomer),
+  authPermissions(permissionsTODeleteBoardMember),
   async (req, res, next) => {
     try {
       const boardId = req.currentUser.boardId;
