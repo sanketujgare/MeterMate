@@ -55,9 +55,12 @@ export const getAllCustomers = async (boardId: any) => {
   }
 };
 
-export const deleteUser = async (userId: string, boardId: Types.ObjectId) => {
+export const deleteCustomer = async (
+  userId: string,
+  boardId: Types.ObjectId
+) => {
   try {
-    const isDeleted = await userRepo.deleteUser(userId, boardId);
+    const isDeleted = await userRepo.deleteCustomer(userId, boardId);
     if (!isDeleted) return userResponces.NO_CUSTOMERS_FOUND;
     return userResponces.USER_DELETED_SUCCESSFULY;
   } catch (e) {
@@ -107,7 +110,7 @@ export default {
   findUser,
   createUser,
   getAllCustomers,
-  deleteUser,
+  deleteCustomer,
   getDeltedCustomers,
   assignMeter,
   createBoard,

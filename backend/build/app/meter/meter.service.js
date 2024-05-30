@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getMeterIds = exports.getMeterId = exports.updateMeter = void 0;
+exports.getMeterByService = exports.updateMeter = void 0;
 const meter_repo_1 = __importDefault(require("./meter.repo"));
 const meter_responces_1 = require("./meter.responces");
 const updateMeter = (meterId, updatedFields) => __awaiter(void 0, void 0, void 0, function* () {
@@ -27,31 +27,17 @@ const updateMeter = (meterId, updatedFields) => __awaiter(void 0, void 0, void 0
     }
 });
 exports.updateMeter = updateMeter;
-const getMeterId = (serviceId) => __awaiter(void 0, void 0, void 0, function* () {
+const getMeterByService = (serviceId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const meterId = yield meter_repo_1.default.getMeterId(serviceId);
-        return meterId;
+        const meter = yield meter_repo_1.default.getMeterByService(serviceId);
+        return meter;
     }
     catch (e) {
         throw meter_responces_1.meterResponces.METER_NOT_FOUND;
     }
 });
-exports.getMeterId = getMeterId;
-//NOT IN USE FOR NOW
-const getMeterIds = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const meters = yield meter_repo_1.default.getMeters(id);
-        // if (!meters) return meterResponces.METER_NOT_FOUND;
-        const meterIds = meters.map((meter) => meter._id);
-        return meterIds;
-    }
-    catch (e) {
-        throw meter_responces_1.meterResponces.METER_NOT_FOUND;
-    }
-});
-exports.getMeterIds = getMeterIds;
+exports.getMeterByService = getMeterByService;
 exports.default = {
     updateMeter: exports.updateMeter,
-    getMeterId: exports.getMeterId,
-    getMeterIds: exports.getMeterIds,
+    getMeterByService: exports.getMeterByService,
 };

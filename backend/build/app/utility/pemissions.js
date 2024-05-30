@@ -1,9 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.permissionsToGetTotalEmployeeCount = exports.permissionsToGetTotalCustomersCount = exports.permissionsToUploadBulk = exports.permissionsToConfigureServices = exports.permissionsToCreateBoardMember = exports.permissionsToUpdateCustomers = exports.permissionsTosearchCustomer = exports.permissionsToSearchEmp = exports.permissionsToViewMeter = exports.permissionsToDeleteEmployee = exports.permissionsToDeleteBoard = exports.permissionsToCreateBoard = exports.permissionsToAssignMeter = exports.permissionsToViewDeleted = exports.permissionsToDeleteUser = exports.permissionsToViewAllEmployees = exports.permissionsToViewAllCustomers = exports.permissionsToViewUser = exports.permissionsToCreate = exports.roles = exports.permissions = void 0;
+exports.permissionsToGetTotalEmployeeCount = exports.permissionsToGetTotalCustomersCount = exports.permissionsToUploadBulk = exports.permissionsToConfigureServices = exports.permissionsToCreateBoardMember = exports.permissionsToUpdateCustomers = exports.permissionsTosearchCustomer = exports.permissionsToSearchEmp = exports.permissionsToViewMeter = exports.permissionsToDeleteEmployee = exports.permissionsToDeleteBoard = exports.permissionsToCreateBoard = exports.permissionsToAssignMeter = exports.permissionsToViewDeleted = exports.permissionsToDeleteBoardMemberAndCustomer = exports.permissionsToDeleteUser = exports.permissionsToViewAllEmployees = exports.permissionsToViewAllCustomers = exports.permissionsToViewUser = exports.permissionsToCreate = exports.roles = exports.permissions = void 0;
 exports.permissions = {
     boardAdmin: [
         "createBoardMember",
+        "deleteBoardMember",
         "viewAllCustomers",
         "deleteCustomer",
         "assignMeter",
@@ -72,7 +73,11 @@ exports.permissionsToCreate = [
 exports.permissionsToViewUser = ["viewCustomer", "viewEmployee"];
 exports.permissionsToViewAllCustomers = ["viewAllCustomers"];
 exports.permissionsToViewAllEmployees = ["viewAllEmployees"];
-exports.permissionsToDeleteUser = ["deleteCustomer", "deleteEmployee"];
+exports.permissionsToDeleteUser = ["deleteEmployee"];
+exports.permissionsToDeleteBoardMemberAndCustomer = [
+    "deleteCustomer",
+    "deleteBoardMember",
+];
 exports.permissionsToViewDeleted = ["viewDeletedCustomers"];
 exports.permissionsToAssignMeter = ["assignMeter"];
 exports.permissionsToCreateBoard = ["createBoard"];

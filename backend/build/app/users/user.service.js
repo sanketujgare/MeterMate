@@ -8,22 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createBoard = exports.assignMeter = exports.getDeltedCustomers = exports.deleteUser = exports.getAllCustomers = exports.createUser = exports.checkExisting = exports.findUser = exports.getWithoutPassword = void 0;
+exports.createBoard = exports.assignMeter = exports.getDeltedCustomers = exports.deleteCustomer = exports.getAllCustomers = exports.createUser = exports.checkExisting = exports.findUser = void 0;
 const auth_responses_1 = require("../auth/auth.responses");
 const board_service_1 = __importDefault(require("../boards/board.service"));
 const meter_responces_1 = require("../meter/meter.responces");
@@ -31,20 +20,6 @@ const meter_service_1 = __importDefault(require("../meter/meter.service"));
 const encrypt_1 = require("../utility/encrypt");
 const user_repo_1 = __importDefault(require("./user.repo"));
 const user_responces_1 = require("./user.responces");
-//no use
-const getWithoutPassword = (users) => {
-    try {
-        const userswithoutPassword = users.map((user) => {
-            const { password } = user, restOfTheUser = __rest(user, ["password"]);
-            return restOfTheUser;
-        });
-        return userswithoutPassword;
-    }
-    catch (e) {
-        throw e;
-    }
-};
-exports.getWithoutPassword = getWithoutPassword;
 const findUser = (query) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = yield user_repo_1.default.findUser(query);
@@ -98,9 +73,9 @@ const getAllCustomers = (boardId) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.getAllCustomers = getAllCustomers;
-const deleteUser = (userId, boardId) => __awaiter(void 0, void 0, void 0, function* () {
+const deleteCustomer = (userId, boardId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const isDeleted = yield user_repo_1.default.deleteUser(userId, boardId);
+        const isDeleted = yield user_repo_1.default.deleteCustomer(userId, boardId);
         if (!isDeleted)
             return user_responces_1.userResponces.NO_CUSTOMERS_FOUND;
         return user_responces_1.userResponces.USER_DELETED_SUCCESSFULY;
@@ -109,13 +84,12 @@ const deleteUser = (userId, boardId) => __awaiter(void 0, void 0, void 0, functi
         throw e;
     }
 });
-exports.deleteUser = deleteUser;
+exports.deleteCustomer = deleteCustomer;
 const getDeltedCustomers = (boardId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const deletedCustomers = yield user_repo_1.default.getDeltedCustomers(boardId);
         if (!deletedCustomers)
             return user_responces_1.userResponces.NO_CUSTOMERS_FOUND;
-        const customersWIthoutPassword = (0, exports.getWithoutPassword)(deletedCustomers);
         return deletedCustomers;
     }
     catch (e) {
@@ -125,11 +99,11 @@ const getDeltedCustomers = (boardId) => __awaiter(void 0, void 0, void 0, functi
 exports.getDeltedCustomers = getDeltedCustomers;
 const assignMeter = (userId, serviceId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let meterId = yield meter_service_1.default.getMeterId(serviceId);
-        if (!meterId)
+        let meter = yield meter_service_1.default.getMeterByService(serviceId);
+        if (!meter)
             return meter_responces_1.meterResponces.METER_NOT_AVAILABLE;
-        yield user_repo_1.default.assignMeter(userId, meterId);
-        const isUpdated = yield meter_service_1.default.updateMeter(meterId, {
+        yield user_repo_1.default.assignMeter(userId, meter);
+        const isUpdated = yield meter_service_1.default.updateMeter(meter._id, {
             isAssigned: true,
             isActive: true,
         });
@@ -156,7 +130,7 @@ exports.default = {
     findUser: exports.findUser,
     createUser: exports.createUser,
     getAllCustomers: exports.getAllCustomers,
-    deleteUser: exports.deleteUser,
+    deleteCustomer: exports.deleteCustomer,
     getDeltedCustomers: exports.getDeltedCustomers,
     assignMeter: exports.assignMeter,
     createBoard: exports.createBoard,

@@ -31,8 +31,10 @@ userRouter.post("/create-user", (0, auth_permissions_1.authPermissions)(pemissio
         next(e);
     }
 }));
-userRouter.get("get-user", (0, auth_permissions_1.authPermissions)(pemissions_1.permissionsToViewUser), (req, res, next) => {
+userRouter.get("get-user/:userid", (0, auth_permissions_1.authPermissions)(pemissions_1.permissionsToViewUser), (req, res, next) => {
     try {
+        const userId = req.params.userid;
+        // const result =
     }
     catch (e) {
         next(e);
@@ -49,10 +51,10 @@ userRouter.get("/getall-customers/:boardid", (0, auth_permissions_1.authPermissi
         next(e);
     }
 }));
-userRouter.delete("/delete-user/:userid", (0, auth_permissions_1.authPermissions)(pemissions_1.permissionsToDeleteUser), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+userRouter.delete("/delete-board-user/:userid", (0, auth_permissions_1.authPermissions)(pemissions_1.permissionsToDeleteBoardMemberAndCustomer), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const boardId = req.currentUser.boardId;
-        const result = yield user_service_1.default.deleteUser(req.params.userid, boardId);
+        const result = yield user_service_1.default.deleteCustomer(req.params.userid, boardId);
         res.send(new responceHandeler_1.responseHandler(result));
     }
     catch (e) {

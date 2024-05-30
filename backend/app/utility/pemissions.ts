@@ -10,6 +10,7 @@ export interface permissionsI {
 export const permissions: permissionsI = {
   boardAdmin: [
     "createBoardMember",
+    "deleteBoardMember",
     "viewAllCustomers",
     "deleteCustomer",
     "assignMeter",
@@ -90,7 +91,10 @@ export const permissionsToCreate = [
 export const permissionsToViewUser = ["viewCustomer", "viewEmployee"];
 export const permissionsToViewAllCustomers = ["viewAllCustomers"];
 export const permissionsToViewAllEmployees = ["viewAllEmployees"];
-export const permissionsToDeleteUser = ["deleteCustomer", "deleteEmployee"];
+export const permissionsToDeleteBoardMemberAndCustomer = [
+  "deleteCustomer",
+  "deleteBoardMember",
+];
 export const permissionsToViewDeleted = ["viewDeletedCustomers"];
 export const permissionsToAssignMeter = ["assignMeter"];
 export const permissionsToCreateBoard = ["createBoard"];
@@ -109,7 +113,6 @@ export const permissionsToGetTotalEmployeeCount = ["getTotalEmployeeCount"];
 export default {
   permissionsToAssignMeter,
   permissionsToCreate,
-  permissionsToDeleteUser,
   permissionsToViewAllCustomers,
   permissionsToViewDeleted,
   permissionsToViewUser,

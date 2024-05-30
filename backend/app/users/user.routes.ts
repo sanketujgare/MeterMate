@@ -14,13 +14,13 @@ import { authPermissions } from "../utility/auth-permissions";
 import {
   permissionsToAssignMeter,
   permissionsToCreate,
-  permissionsToDeleteUser,
   permissionsToViewAllCustomers,
   permissionsToViewDeleted,
   permissionsToViewUser,
   permissionsToCreateBoard,
+  permissionsToDeleteBoardMemberAndCustomer,
+  permissionsToDeleteEmployee,
 } from "../utility/pemissions";
-import { Types } from "mongoose";
 
 const userRouter = Router();
 
@@ -39,10 +39,12 @@ userRouter.post(
 );
 
 userRouter.get(
-  "get-user",
+  "get-user/:userid",
   authPermissions(permissionsToViewUser),
   (req, res, next) => {
     try {
+      const userId = req.params.userid;
+      // const result =
     } catch (e) {
       next(e);
     }
@@ -65,12 +67,47 @@ userRouter.get(
 );
 
 userRouter.delete(
-  "/delete-user/:userid",
-  authPermissions(permissionsToDeleteUser),
+  "/delete-customer/:userid",
+  authPermissions(permissionsToDeleteBoardMemberAndCustomer),
   async (req, res, next) => {
     try {
       const boardId = req.currentUser.boardId;
-      const result = await userService.deleteUser(req.params.userid, boardId);
+      const result = await userService.deleteCustomer(
+        req.params.userid,
+        boardId
+      );
+      res.send(new responseHandler(result));
+    } catch (e) {
+      next(e);
+    }
+  }
+);
+userRouter.delete(
+  "/delete-board-member/:userid",
+  authPermissions(permissionsToDeleteBoardMemberAndCustomer),
+  async (req, res, next) => {
+    try {
+      const boardId = req.currentUser.boardId;
+      const result = await userService.deleteCustomer(
+        req.params.userid,
+        boardId
+      );
+      res.send(new responseHandler(result));
+    } catch (e) {
+      next(e);
+    }
+  }
+);
+userRouter.delete(
+  "/delete-employee/:userid",
+  authPermissions(permissionsToDeleteEmployee),
+  async (req, res, next) => {
+    try {
+      const boardId = req.currentUser.boardId;
+      const result = await userService.deleteCustomer(
+        req.params.userid,
+        boardId
+      );
       res.send(new responseHandler(result));
     } catch (e) {
       next(e);
