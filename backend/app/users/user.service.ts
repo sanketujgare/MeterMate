@@ -1,3 +1,4 @@
+import { Types } from "mongoose";
 import { authResponces } from "../auth/auth.responses";
 import boardService from "../boards/board.service";
 import { meterResponces } from "../meter/meter.responces";
@@ -6,7 +7,8 @@ import { serviceIdI } from "../meter/meter.type";
 import { encrypt } from "../utility/encrypt";
 import userRepo from "./user.repo";
 import { userResponces } from "./user.responces";
-import { boardIdI, id, userSchemaI } from "./user.types";
+import { id, userSchemaI } from "./user.types";
+import { boardSchemaI } from "../boards/board.types";
 
 export const findUser = async (query: Partial<userSchemaI>) => {
   try {
@@ -42,45 +44,46 @@ export const createUser = async (newUser: userSchemaI) => {
     throw e;
   }
 };
-export const getAllCustomers = async (boardId: id) => {
-  try {
-    const customers = await userRepo.getAllCustomers(boardId);
-    if (!customers) return userResponces.NO_CUSTOMERS_FOUND;
 
+export const getAllCustomers = async (boardId: any) => {
+  try {
+    const customers = await userRepo.getAllCustomers(boardId as Types.ObjectId);
+    if (!customers) return userResponces.NO_CUSTOMERS_FOUND;
     return customers;
   } catch (e) {
     throw userResponces.NO_CUSTOMERS_FOUND;
   }
 };
-export const deleteUser = async (userIdsToDelete: any) => {
-  try {
-    const isDeleted = await userRepo.deleteUser(userIdsToDelete);
-    if (!isDeleted) return userResponces.NO_CUSTOMERS_FOUND;
 
+export const deleteUser = async (userId: string, boardId: Types.ObjectId) => {
+  try {
+    const isDeleted = await userRepo.deleteUser(userId, boardId);
+    if (!isDeleted) return userResponces.NO_CUSTOMERS_FOUND;
     return userResponces.USER_DELETED_SUCCESSFULY;
   } catch (e) {
     throw e;
   }
 };
 
-export const getDeltedCustomers = async (boardId: string) => {
+export const getDeltedCustomers = async (boardId: Types.ObjectId) => {
   try {
     const deletedCustomers = await userRepo.getDeltedCustomers(boardId);
     if (!deletedCustomers) return userResponces.NO_CUSTOMERS_FOUND;
-
     return deletedCustomers;
   } catch (e) {
     throw userResponces.NO_CUSTOMERS_FOUND;
   }
 };
 
-export const assignMeter = async (userId: id, serviceId: serviceIdI) => {
+export const assignMeter = async (
+  userId: Types.ObjectId,
+  serviceId: serviceIdI
+) => {
   try {
-    let meterId = await meterService.getMeterId(serviceId);
-    if (!meterId) return meterResponces.METER_NOT_AVAILABLE;
-    await userRepo.assignMeter(userId, meterId);
-
-    const isUpdated = await meterService.updateMeter(meterId, {
+    let meter = await meterService.getMeterByService(serviceId);
+    if (!meter) return meterResponces.METER_NOT_AVAILABLE;
+    await userRepo.assignMeter(userId, meter);
+    const isUpdated = await meterService.updateMeter(meter._id, {
       isAssigned: true,
       isActive: true,
     });
@@ -91,7 +94,7 @@ export const assignMeter = async (userId: id, serviceId: serviceIdI) => {
   }
 };
 
-export const createBoard = async (newBoard: any) => {
+export const createBoard = async (newBoard: boardSchemaI) => {
   try {
     const isCreated = await boardService.createBoard(newBoard);
     return isCreated;

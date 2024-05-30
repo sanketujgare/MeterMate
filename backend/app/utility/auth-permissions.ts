@@ -1,16 +1,15 @@
-import { authResponces } from "../auth/auth.responses";
 import { Request, Response, NextFunction } from "express";
-import { permissions, Role, roles } from "../auth/auth.types";
+import { permissions, Role, roles } from "../utility/pemissions";
 
 export const authPermissions =
   (requiredPermissions: string[]) =>
-  (req: Request, res: Response, next: NewableFunction) => {
+  (req: Request, res: Response, next: NextFunction) => {
     try {
-      const userRoles: Role[] = req.body.role;
-      for (let role of roles) {
+      const userRoles: Role[] = req.currentUser.role;
+      for (let role of userRoles) {
         if (permissions[role]) {
           const rolePermissions = permissions[role];
-          console.log(rolePermissions);
+
           for (let permission of rolePermissions) {
             if (requiredPermissions.includes(permission)) {
               next();
@@ -21,7 +20,7 @@ export const authPermissions =
     } catch (e) {
       next({
         statusCode: 403,
-        message: "FROBIDDEN",
+        message: "ACCESS DENIED",
       });
     }
   };

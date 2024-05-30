@@ -23,7 +23,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.login = void 0;
+exports.logout = exports.login = void 0;
 const user_responces_1 = require("../users/user.responces");
 const user_service_1 = __importDefault(require("../users/user.service"));
 const auth_responses_1 = require("./auth.responses");
@@ -39,16 +39,28 @@ const login = (credentials) => __awaiter(void 0, void 0, void 0, function* () {
         if (!didMatch) {
             throw user_responces_1.userResponces.INVALID_CREDENTIALS;
         }
-        const _a = user.toObject(), { password, role } = _a, restOfTheUser = __rest(_a, ["password", "role"]);
+        const _a = user.toObject(), { password } = _a, restOfTheUser = __rest(_a, ["password"]);
         const { JWT_SECRET } = process.env;
         const token = jsonwebtoken_1.default.sign(restOfTheUser, JWT_SECRET || "");
-        return { token, newuser: { role } };
+        return { token };
     }
     catch (e) {
         throw auth_responses_1.authResponces.INVALID_CREDENTIALS;
     }
 });
 exports.login = login;
+const logout = (token) => {
+    try {
+        const { MANIPULATE_TOKEN } = process.env;
+        token = token + MANIPULATE_TOKEN;
+        return token;
+    }
+    catch (e) {
+        throw e;
+    }
+};
+exports.logout = logout;
 exports.default = {
     login: exports.login,
+    logout: exports.logout,
 };

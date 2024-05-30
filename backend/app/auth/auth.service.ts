@@ -15,15 +15,25 @@ export const login = async (credentials: CredentialsI) => {
     if (!didMatch) {
       throw userResponces.INVALID_CREDENTIALS;
     }
-    const { password, role, ...restOfTheUser } = user.toObject();
+    const { password, ...restOfTheUser } = user.toObject();
     const { JWT_SECRET } = process.env;
     const token = jwt.sign(restOfTheUser, JWT_SECRET || "");
-    return { token, newuser: { role } };
+    return { token };
   } catch (e) {
     throw authResponces.INVALID_CREDENTIALS;
   }
 };
 
+export const logout = (token: string) => {
+  try {
+    const { MANIPULATE_TOKEN } = process.env;
+    token = token + MANIPULATE_TOKEN;
+    return token;
+  } catch (e) {
+    throw e;
+  }
+};
 export default {
   login,
+  logout,
 };

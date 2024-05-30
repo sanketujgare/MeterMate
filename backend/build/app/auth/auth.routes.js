@@ -29,4 +29,15 @@ authRouter.post("/login", (req, res, next) => __awaiter(void 0, void 0, void 0, 
     }
     catch (e) { }
 }));
+authRouter.post("/logout", (req, res, next) => {
+    var _a;
+    try {
+        const token = (_a = req.headers["authorization"]) === null || _a === void 0 ? void 0 : _a.split(" ")[1];
+        const result = auth_service_1.default.logout(token || "");
+        res.send(new responceHandeler_1.responseHandler(result));
+    }
+    catch (e) {
+        next(e);
+    }
+});
 exports.default = new routes_types_1.Route("/auth", authRouter);

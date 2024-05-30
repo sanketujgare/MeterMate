@@ -29,21 +29,20 @@ const insertOne = (newUser) => {
 exports.insertOne = insertOne;
 const getAllCustomers = (boardId) => __awaiter(void 0, void 0, void 0, function* () {
     const customers = yield user_schema_1.default.find({
-        $and: [{ role: "Customer" }, { boardId: boardId }],
-    });
+        $and: [{ role: "customer" }, { boardId: boardId }],
+    }, { password: 0 });
     return customers;
 });
 exports.getAllCustomers = getAllCustomers;
-const deleteUser = (userIdsToUpdate) => __awaiter(void 0, void 0, void 0, function* () {
-    const isDeleted = yield user_schema_1.default.updateMany({ _id: { $in: userIdsToUpdate } }, { $set: { isDeleted: true } });
+const deleteUser = (userId, boardId) => __awaiter(void 0, void 0, void 0, function* () {
+    const isDeleted = yield user_schema_1.default.updateMany({ $and: [{ _id: userId }, { boardId: boardId }] }, { $set: { isDeleted: true } });
     return isDeleted;
 });
 exports.deleteUser = deleteUser;
 const getDeltedCustomers = (boardId) => __awaiter(void 0, void 0, void 0, function* () {
     const deletedCustomers = yield user_schema_1.default.find({
-        $and: [{ metersAssigned: boardId }, { isDeleted: true }],
+        $and: [{ boardId: boardId }, { isDeleted: true }],
     });
-    // console.log(deletedCustomers);
     return deletedCustomers;
 });
 exports.getDeltedCustomers = getDeltedCustomers;

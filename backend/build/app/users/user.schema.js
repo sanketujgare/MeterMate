@@ -44,6 +44,10 @@ const userSchema = new base_schema_1.BaseSchema({
         type: Boolean,
         default: false,
     },
+    boardId: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "Board",
+    },
 });
 const userModel = (0, mongoose_1.model)("User", userSchema);
 exports.default = userModel;

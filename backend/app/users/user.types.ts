@@ -43,7 +43,6 @@ export const assignMeterSchema = z.object({
   serviceId: z.string(),
 });
 
-// export const id = z.string();
 export type id = String;
 
 export interface IassignMeterSchema extends z.infer<typeof assignMeterSchema> {}

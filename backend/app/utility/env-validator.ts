@@ -1,5 +1,6 @@
 import { config } from "dotenv";
 import { z } from "zod";
+import { userSchemaI } from "../users/user.types";
 export const envValidator = z.object({
   PORT: z.coerce.number(),
   MONGO_URI: z.string(),
@@ -22,6 +23,17 @@ export const validateEnv = () => {
 declare global {
   namespace nodeJS {
     interface ProcessEnv extends Env {}
+  }
+}
+
+declare global {
+  namespace nodeJS {
+    interface ProcessEnv extends Env {}
+  }
+  namespace Express {
+    interface Request {
+      currentUser?: any;
+    }
   }
 }
 

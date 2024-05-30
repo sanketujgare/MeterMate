@@ -8,9 +8,11 @@ const express_1 = require("express");
 const cors_1 = __importDefault(require("cors"));
 const routes_data_1 = require("./routes.data");
 const responceHandeler_1 = require("../utility/responceHandeler");
+const validate_token_1 = require("../utility/validate-token");
 const registerMiddlewares = (app) => {
     app.use((0, express_1.json)());
     app.use((0, cors_1.default)());
+    app.use((0, validate_token_1.validateToken)(validate_token_1.excludedRoutes));
     for (let route of routes_data_1.routes) {
         app.use(route.path, route.router);
     }

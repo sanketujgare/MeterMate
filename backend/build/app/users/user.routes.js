@@ -18,8 +18,10 @@ const user_service_1 = __importDefault(require("./user.service"));
 const responceHandeler_1 = require("../utility/responceHandeler");
 const user_validations_1 = require("./user.validations");
 const board_validations_1 = require("../boards/board.validations");
+const auth_permissions_1 = require("../utility/auth-permissions");
+const pemissions_1 = require("../utility/pemissions");
 const userRouter = (0, express_1.Router)();
-userRouter.post("/create", ...user_validations_1.userValidations, // VARIFIED
+userRouter.post("/create-user", (0, auth_permissions_1.authPermissions)(pemissions_1.permissionsToCreate), ...user_validations_1.userValidations, // VARIFIED
 (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const result = yield user_service_1.default.createUser(req.body);
@@ -29,14 +31,14 @@ userRouter.post("/create", ...user_validations_1.userValidations, // VARIFIED
         next(e);
     }
 }));
-userRouter.get("getUser", (req, res, next) => {
+userRouter.get("get-user", (0, auth_permissions_1.authPermissions)(pemissions_1.permissionsToViewUser), (req, res, next) => {
     try {
     }
     catch (e) {
         next(e);
     }
 });
-userRouter.get("/getall-customers/:boardid", ...user_validations_1.getUsersValidations, //VARIFIED
+userRouter.get("/getall-customers/:boardid", (0, auth_permissions_1.authPermissions)(pemissions_1.permissionsToViewAllCustomers), ...user_validations_1.getUsersValidations, //VARIFIED
 (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const boardId = req.params.boardid;
@@ -47,18 +49,19 @@ userRouter.get("/getall-customers/:boardid", ...user_validations_1.getUsersValid
         next(e);
     }
 }));
-userRouter.delete("/delete-user", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+userRouter.delete("/delete-user/:userid", (0, auth_permissions_1.authPermissions)(pemissions_1.permissionsToDeleteUser), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const result = yield user_service_1.default.deleteUser(req.body.userIdsToUpdate);
+        const boardId = req.currentUser.boardId;
+        const result = yield user_service_1.default.deleteUser(req.params.userid, boardId);
         res.send(new responceHandeler_1.responseHandler(result));
     }
     catch (e) {
         next(e);
     }
 }));
-userRouter.get("/get-deleted", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+userRouter.get("/get-deleted", (0, auth_permissions_1.authPermissions)(pemissions_1.permissionsToViewDeleted), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const result = yield user_service_1.default.getDeltedCustomers(req.body.boardId);
+        const result = yield user_service_1.default.getDeltedCustomers(req.currentUser.boardId);
         res.send(new responceHandeler_1.responseHandler(result));
     }
     catch (e) {
@@ -72,7 +75,7 @@ userRouter.put("/update-user", (req, res, next) => __awaiter(void 0, void 0, voi
         next(e);
     }
 }));
-userRouter.put("/assign-meter", ...user_validations_1.assignMeterValidations, // VARIFIED
+userRouter.put("/assign-meter", (0, auth_permissions_1.authPermissions)(pemissions_1.permissionsToAssignMeter), ...user_validations_1.assignMeterValidations, // VARIFIED
 (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const result = yield user_service_1.default.assignMeter(req.body.userId, req.body.serviceId);
@@ -82,7 +85,7 @@ userRouter.put("/assign-meter", ...user_validations_1.assignMeterValidations, //
         next(e);
     }
 }));
-userRouter.post("/create-board", ...board_validations_1.createBoardValidations, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+userRouter.post("/create-board", (0, auth_permissions_1.authPermissions)(pemissions_1.permissionsToCreateBoard), ...board_validations_1.createBoardValidations, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const result = yield user_service_1.default.createBoard(req.body);
         res.send(new responceHandeler_1.responseHandler(result));

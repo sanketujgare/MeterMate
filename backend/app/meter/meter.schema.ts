@@ -2,7 +2,7 @@ import { model, Schema } from "mongoose";
 
 const meterSchema = new Schema({
   boardId: {
-    type: String,
+    type: Schema.Types.ObjectId,
     required: true,
     ref: "Board",
   },

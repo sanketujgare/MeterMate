@@ -44,6 +44,10 @@ const userSchema = new BaseSchema({
     type: Boolean,
     default: false,
   },
+  boardId: {
+    type: Schema.Types.ObjectId,
+    ref: "Board",
+  },
 });
 
 const userModel = model<userSchemaI>("User", userSchema);

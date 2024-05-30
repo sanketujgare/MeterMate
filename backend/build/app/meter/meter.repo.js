@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getMeterId = exports.updateMeter = void 0;
+exports.getMeters = exports.getMeterId = exports.updateMeter = void 0;
 const meter_schema_1 = __importDefault(require("./meter.schema"));
 const updateMeter = (meterId, updatedFields) => __awaiter(void 0, void 0, void 0, function* () {
     const isUpdated = yield meter_schema_1.default.meterModel.findByIdAndUpdate({ _id: meterId }, updatedFields);
@@ -26,7 +26,13 @@ const getMeterId = (serviceId) => __awaiter(void 0, void 0, void 0, function* ()
     return meter === null || meter === void 0 ? void 0 : meter._id;
 });
 exports.getMeterId = getMeterId;
+const getMeters = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const meters = yield meter_schema_1.default.meterModel.find({ boardId: id });
+    return meters;
+});
+exports.getMeters = getMeters;
 exports.default = {
     updateMeter: exports.updateMeter,
     getMeterId: exports.getMeterId,
+    getMeters: exports.getMeters,
 };

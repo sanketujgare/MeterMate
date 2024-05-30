@@ -10,14 +10,18 @@ export const updateMeter = async (meterId: id, updatedFields: {}) => {
   return isUpdated;
 };
 
-export const getMeterId = async (serviceId: serviceIdI) => {
+export const getMeterByService = async (serviceId: serviceIdI) => {
   const meter = await meterSchema.meterModel.findOne({
     $and: [{ serviceId: serviceId }, { isAssigned: false }],
   });
-  return meter?._id;
+  return meter;
 };
-
+export const getMeters = async (id: id) => {
+  const meters = await meterSchema.meterModel.find({ boardId: id });
+  return meters;
+};
 export default {
   updateMeter,
-  getMeterId,
+  getMeterByService,
+  getMeters,
 };
