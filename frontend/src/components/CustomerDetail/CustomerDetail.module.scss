@@ -1,0 +1,70 @@
+@mixin btn {
+  padding: 0.5rem;
+  background-color: rgb(90, 156, 248);
+  border-radius: 4px;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.CustomerDetail {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  // align-items: center;
+  gap: 2rem;
+  .CustomerInfo {
+    display: flex;
+    padding: 1rem;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0px 0px 4px #ededed;
+    border-radius: 0.5rem;
+    .CustomerImage {
+      .Image {
+        width: 3rem;
+      }
+    }
+    .PersonalInfo {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  .UpdateBtn {
+    padding: 0 1rem;
+    .btnUpdate {
+      // padding: 1rem;
+      @include btn;
+    }
+  }
+  .OtherInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    .MeterInfo {
+      display: flex;
+      flex-direction: column;
+      .MeterContainer {
+        display: flex;
+
+        .Meter {
+          padding: 1rem;
+          display: flex;
+          flex-direction: column;
+          box-shadow: 0px 0px 4px #ededed;
+        }
+      }
+    }
+    .Buttons {
+      display: flex;
+      padding: 1rem;
+      justify-content: space-between;
+      .btnDelete {
+        @include btn;
+      }
+      .btnClose {
+        @include btn;
+      }
+    }
+  }
+}

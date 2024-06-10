@@ -1,0 +1,26 @@
+.Header {
+  padding: 0 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 3rem;
+  max-height: 3rem;
+  border-bottom: 2px solid #ededed;
+  gap: 1rem;
+  .Logo {
+    flex: 1;
+  }
+  .SearchInput {
+    flex: 4;
+    border: none;
+  }
+  .SearchButton {
+    flex: 1;
+
+    .Button {
+      border: none;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+    }
+  }
+}

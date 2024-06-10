@@ -1,0 +1,12 @@
+.AdminPage {
+  .MainScreen {
+    display: flex;
+
+    .SideBar {
+      flex: 1;
+    }
+    .DashBoard {
+      flex: 4;
+    }
+  }
+}

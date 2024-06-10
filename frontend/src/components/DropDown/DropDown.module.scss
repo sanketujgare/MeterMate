@@ -1,0 +1,15 @@
+.DropDown {
+  .Select {
+    // width: 4rem;
+    border-radius: 0.3rem;
+    border: none;
+    outline: none;
+    font-size: 0.8rem;
+    background-color: rgb(185, 207, 246);
+    padding: 0.2rem;
+    .Option {
+      font-size: 0.8rem;
+      border-radius: 0.8rem;
+    }
+  }
+}
