@@ -1,0 +1,22 @@
+.SearchField {
+  display: flex;
+
+  // border: 1px solid #ccc;
+  box-shadow: 0px 0px 4px #ededed;
+  border-radius: 4px;
+
+  .SearchInput {
+    padding: 0.5rem;
+    border: none;
+    width: 100%;
+    &:focus {
+      outline: none;
+      border-color: #ccc;
+      border-style: solid;
+      border-width: 1px;
+    }
+  }
+  .SearchButton {
+    border: none;
+  }
+}
